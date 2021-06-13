@@ -2,8 +2,6 @@ from rest_framework import serializers
 from .models import (
     Authors
 )
-
-
 class AuthorSerializer(serializers.ModelSerializer):
     posts = serializers.PrimaryKeyRelatedField(
             many=True, read_only=True
