@@ -12,6 +12,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register('authors', AuthorViewSet, basename='Authors')
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),

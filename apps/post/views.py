@@ -1,3 +1,19 @@
-from django.shortcuts import render
+from rest_framework import (
+    status,
+    viewsets,
+    generics
+)
+from rest_framework.permissions import IsAuthenticated
+from .serializers import PostSerializer
+from .models import Post
 
-# Create your views here.
+class PostViewSet(viewsets.ModelViewSet):
+    """List and create Post"""
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    http_method_names = ['get', 'put', 'post', 'path']
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        """Captura o user que criou o post!"""
+        serializer.save(author=self.request.user)
