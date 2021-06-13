@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'apps.authors',
     'apps.post',
+    'apps.readers'
 ]
 
 MIDDLEWARE = [
