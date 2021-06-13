@@ -1,3 +1,4 @@
+from apps.readers.views import ReaderViewSet
 from apps.post.views import PostViewSet
 from django.contrib import admin
 from django.urls import path
@@ -13,7 +14,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register('authors', AuthorViewSet, basename='Authors')
 router.register('posts', PostViewSet, basename='Posts')
-
+router.register('readers', ReaderViewSet, basename='Readers')
 
 
 urlpatterns = [
