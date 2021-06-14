@@ -3,8 +3,9 @@ from rest_framework import serializers
 from .models import Post
 
 class PostSerializer(serializers.ModelSerializer):
-
-    author = AuthorPostSerializer(read_only=True)
+    """Serializes publications data to the database"""
+    
+    author = AuthorPostSerializer(read_only=True) # Binds the authores serializer for each post
     
     class Meta:
         model = Post

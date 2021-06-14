@@ -15,5 +15,6 @@ class PostViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        """Captura o user que criou o post!"""
+        """Capture the user id that created the post!"""
+        
         serializer.save(author=self.request.user)

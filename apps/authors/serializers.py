@@ -3,6 +3,7 @@ from .models import (
     Authors
 )
 class AuthorSerializer(serializers.ModelSerializer):
+    """Serializador geral de dados de um author"""
     posts = serializers.PrimaryKeyRelatedField(
             many=True, read_only=True
         )
@@ -11,6 +12,7 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class AuthorPostSerializer(serializers.ModelSerializer):
+    """Authors filter serializer"""
     class Meta:
         model = Authors
         fields = [

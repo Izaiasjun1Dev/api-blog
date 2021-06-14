@@ -8,6 +8,8 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 class CustomAccountManager(BaseUserManager):
+    """manages the creation of superusers with 
+    respect to being an author of blog posts"""
 
     def create_superuser(
         self, email, 
@@ -17,12 +19,13 @@ class CustomAccountManager(BaseUserManager):
         other_information.setdefault('is_staff', True)
         other_information.setdefault('is_superuser', True)
         other_information.setdefault('is_active', True)
-
+        
+        # Check Staff
         if other_information.get('is_staff') is not True:
             raise ValueError(
                 'Super user must be assigment to is_staff=True!'
             )
-            
+        # Check is super user
         if other_information.get('is_superuser') is not True:
             raise ValueError(
                 'Super user must be assigment to is_superuser=True!'
@@ -33,12 +36,15 @@ class CustomAccountManager(BaseUserManager):
             first_name, password, 
             **other_information)
 
+     
     def create_user(
         self, email, 
         user_name, 
         first_name,
         password,
         **other_information):
+        """Effectively creates a super user 
+        and validates the email"""
 
         if not email:
             raise ValueError(
@@ -60,6 +66,8 @@ class CustomAccountManager(BaseUserManager):
 
 
 class Authors(PermissionsMixin, AbstractBaseUser):
+    """Authors Model"""
+
     user_name = models.CharField(
         max_length=80,
         unique=True
@@ -96,9 +104,11 @@ class Authors(PermissionsMixin, AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name', 'first_name']
 
-    class Meta:
+    class Meta:# Sort by creation date
         ordering = ('-created_at', )
 
     def __str__(self):
+        """define representativeness of the model"""
+        
         return f'User_name: {self.user_name}, Name: {self.first_name}'
     

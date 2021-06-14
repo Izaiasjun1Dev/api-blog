@@ -2,6 +2,8 @@ from django.db import models
 from apps.authors.models import Authors
 
 class Post(models.Model):
+    """Initializes a valid publication model in the database"""
+
     title_post = models.CharField(
         'Title of post',
         max_length=200,
@@ -28,8 +30,11 @@ class Post(models.Model):
     )
     updated_at = models.DateTimeField(auto_now=True)
 
-    class Meta:
+    class Meta: # Sort by creation date
         ordering = ('-created_at', )
 
     def __str__(self):
+        """Creates a representative model 
+        of a model with the title"""
+
         return f'"Post title": {self.title_post}'
